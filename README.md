@@ -70,9 +70,9 @@ Webアプリもアプリかのようにしれっと表示する
 - ときえのき（個人）エノキ電気ホームページのどこか1ページに、ときえのき（個人）のホームページ（ペライチでいい）を作る
 - 制作楽曲に関しては、エノキ電気所属のときえのきが作りました
 
-## Nuxt Minimal Starter
+## Nuxt Content Starter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Look at the [Nuxt Content documentation](https://content.nuxt.com) to learn more.
 
 ## Setup
 
