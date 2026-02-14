@@ -6,13 +6,16 @@ const { data: page } = await useAsyncData('page-' + route.path, () => {
 })
 
 if (!page.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page not found',
+    fatal: true,
+  })
 }
 </script>
 
 <template>
-  <ContentRenderer
-    v-if="page"
-    :value="page"
-  />
+  <v-alert v-if="!page" type="error">Page not found</v-alert>
+  <v-text-field label="Markdown Content" readonly />
+  <ContentRenderer v-if="page" :value="page" />
 </template>
