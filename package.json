@@ -4,13 +4,17 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --port 10000",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "nuxt": "^4.3.1",
+    "pinia": "^3.0.4",
+    "pinia-plugin-persistedstate": "^4.7.1",
+    "pug": "^3.0.3",
+    "sass-embedded": "^1.97.3",
     "vue": "^3.5.28",
     "vue-router": "^4.6.4"
   }
