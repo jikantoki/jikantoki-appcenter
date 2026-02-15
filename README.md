@@ -30,6 +30,7 @@ ENOKI Appcenter（アプリストア）内蔵型ホームページ
 - - Windows
 - - Web
 - - Mobile (Android/iOS)
+- - Linux
 - アプリかゲームか
 - 音楽かプログラムか
 
