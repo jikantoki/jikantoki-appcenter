@@ -1,3 +1,4 @@
 <template lang="pug">
-  NuxtPage
+div
+  h1 Hello World
 </template>
