@@ -370,6 +370,7 @@ export default {
           requestUserId: userId,
         })
         console.log(res)
+        // @ts-ignore
         switch (res.body.status) {
           case 'request':
           case 'ok': {
