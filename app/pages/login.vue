@@ -81,6 +81,7 @@
 import mixins from '@/mixins/mixins'
 import { useMyProfileStore } from '@/stores/myProfile'
 import { useSettingsStore } from '@/stores/settings'
+import Setup from '@/js/setup'
 export default {
   mixins: [mixins],
   data() {
@@ -108,7 +109,13 @@ export default {
       }
     },
   },
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('ログイン')
+    Setup.setDescription('ログインして、世界とつながろう')
+  },
   mounted() {
+    this.setTitle('ログイン')
     if (localStorage.userIdForLogin) {
       this.userName = localStorage.userIdForLogin
     }

@@ -185,10 +185,10 @@ v-dialog(
 
 <script lang="ts">
 import { App } from '@capacitor/app'
-import { Device } from '@capacitor/device'
 import mixins from '@/mixins/mixins'
 import { useMyProfileStore } from '@/stores/myProfile'
 import { useSettingsStore } from '@/stores/settings'
+import Setup from '@/js/setup'
 
 export default {
   mixins: [mixins],
@@ -218,7 +218,15 @@ export default {
       detailCardDialog: false,
     }
   },
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('友達リスト')
+    Setup.setDescription(
+      '友達リストを確認して、エノキ電気公式ホームページを利用しましょう',
+    )
+  },
   async mounted() {
+    this.setTitle('友達リスト')
     this.loading = true
 
     // 開発者オプション

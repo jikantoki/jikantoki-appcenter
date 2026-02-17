@@ -123,6 +123,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'
 import mixins from '@/mixins/mixins'
 import { useMyProfileStore } from '@/stores/myProfile'
 import { useSettingsStore } from '@/stores/settings'
+import Setup from '@/js/setup'
 
 export default {
   mixins: [mixins],
@@ -134,7 +135,13 @@ export default {
       settings: useSettingsStore(),
     }
   },
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('プロフィール編集')
+    Setup.setDescription('プロフィール編集ページです')
+  },
   async mounted() {
+    this.setTitle('プロフィール編集')
     App.addListener('backButton', () => {
       this.cancelDialog = this.cancelDialog ? false : true
     })

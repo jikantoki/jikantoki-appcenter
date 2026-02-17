@@ -230,11 +230,6 @@ import { useMyProfileStore } from '@/stores/myProfile'
 
 export default {
   mixins: [mixins],
-  setup() {
-    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
-    Setup.setTitle('Top')
-    Setup.setDescription('Nuxt環境を簡単にセットアップできる全部入りパッケージ')
-  },
   data() {
     return {
       param: null as any,
@@ -262,8 +257,13 @@ export default {
       noAccountExist: false,
     }
   },
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('開発者プロフィール')
+    Setup.setDescription('開発者のプロフィールを確認しましょう')
+  },
   async mounted() {
-    this.setTitle(this.$t('index.title'))
+    this.setTitle('開発者プロフィール')
     this.loading = true
     this.qrLoading = true
 

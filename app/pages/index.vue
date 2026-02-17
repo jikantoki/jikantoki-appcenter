@@ -238,6 +238,7 @@ import { Toast } from '@capacitor/toast'
 import mixins from '@/mixins/mixins'
 import { useMyProfileStore } from '@/stores/myProfile'
 import { useSettingsStore } from '@/stores/settings'
+import Setup from '@/js/setup'
 
 export default {
   components: {},
@@ -279,7 +280,13 @@ export default {
       },
     },
   },
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('ENOKI Appcenter')
+    Setup.setDescription('エノキ電気公式ホームページ')
+  },
   async mounted() {
+    this.setTitle('ENOKI Appcenter')
     // @ts-ignore
     this.env = import.meta.env as any
 

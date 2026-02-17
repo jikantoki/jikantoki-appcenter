@@ -112,9 +112,12 @@ import {
 } from 'capacitor-native-settings'
 import { useMyProfileStore } from '@/stores/myProfile'
 import { useSettingsStore } from '@/stores/settings'
+import Setup from '@/js/setup'
+import mixins from '@/mixins/mixins'
 
 export default {
   name: 'SettingsPage',
+  mixins: [mixins],
   data() {
     return {
       logoutDialog: false,
@@ -122,7 +125,14 @@ export default {
       settings: useSettingsStore(),
     }
   },
-  async mounted() {},
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('設定')
+    Setup.setDescription('設定ページです')
+  },
+  async mounted() {
+    this.setTitle('設定')
+  },
   methods: {
     logoutRequest() {
       this.logoutDialog = true

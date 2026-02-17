@@ -44,14 +44,24 @@ v-card(
 <script lang="ts">
 import { Browser } from '@capacitor/browser'
 import { useSettingsStore } from '@/stores/settings'
+import Setup from '@/js/setup'
+import mixins from '@/mixins/mixins'
 
 export default {
+  mixins: [mixins],
   data() {
     return {
       settings: useSettingsStore(),
     }
   },
-  async mounted() {},
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('利用規約')
+    Setup.setDescription('利用規約を確認して、サービスを安全に利用しましょう')
+  },
+  mounted() {
+    this.setTitle('利用規約')
+  },
   methods: {
     /** URLをブラウザで開く */
     async openURL(url: string) {

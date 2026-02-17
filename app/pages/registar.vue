@@ -103,6 +103,7 @@
 
 <script lang="ts">
 import mixins from '@/mixins/mixins'
+import Setup from '@/js/setup'
 export default {
   mixins: [mixins],
   data() {
@@ -140,7 +141,13 @@ export default {
       this.errorMessage = ''
     },
   },
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('アカウント作成')
+    Setup.setDescription('アカウントを作成して、世界とつながろう')
+  },
   mounted() {
+    this.setTitle('アカウント作成')
     if (localStorage.userIdForLogin) {
       this.userName = localStorage.userIdForLogin
     }

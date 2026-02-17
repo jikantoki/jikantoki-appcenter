@@ -195,7 +195,7 @@ export default defineComponent({
      * @returns 引数に合わせて設定したら0、デフォルトのまま設定したら1
      */
     setTitle: (newTitle: string) => {
-      const siteName = 'ENOKI Appcenter'
+      const siteName = 'エノキ電気公式ホームページ'
       let pageTitle
       let returnCode
       if (newTitle) {

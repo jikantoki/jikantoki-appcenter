@@ -122,6 +122,7 @@ import { QrcodeStream } from 'vue-qrcode-reader'
 import mixins from '@/mixins/mixins'
 import { useMyProfileStore } from '@/stores/myProfile'
 import { useSettingsStore } from '@/stores/settings'
+import Setup from '@/js/setup'
 
 export default {
   components: {
@@ -193,7 +194,14 @@ export default {
       },
     },
   },
-  async mounted() {},
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('QRコードで探す')
+    Setup.setDescription('QRコードをスキャンして、アプリや音楽を探しましょう')
+  },
+  mounted() {
+    this.setTitle('QRコードで探す')
+  },
   methods: {
     readQrcode(content: any) {
       const val = content[0].rawValue as string

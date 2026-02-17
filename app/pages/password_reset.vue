@@ -106,6 +106,8 @@
 
 <script lang="ts">
 import mixins from '@/mixins/mixins'
+import Setup from '@/js/setup'
+
 export default {
   mixins: [mixins],
   data() {
@@ -131,7 +133,15 @@ export default {
       ],
     }
   },
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('パスワードリセット')
+    Setup.setDescription(
+      'パスワードをリセットして、アカウントに再度アクセスしましょう',
+    )
+  },
   mounted() {
+    this.setTitle('パスワードリセット')
     if (localStorage.userIdForLogin) {
       this.userName = localStorage.userIdForLogin
     }

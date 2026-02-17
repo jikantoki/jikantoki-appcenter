@@ -58,11 +58,13 @@ v-card(
 
 <script lang="ts">
 import { Capacitor } from '@capacitor/core'
-import { Device } from '@capacitor/device'
 import { StatusBar, Style } from '@capacitor/status-bar'
 import { useSettingsStore } from '@/stores/settings'
+import Setup from '@/js/setup'
+import mixins from '@/mixins/mixins'
 
 export default {
+  mixins: [mixins],
   data() {
     return {
       settings: useSettingsStore(),
@@ -111,7 +113,14 @@ export default {
       deep: true,
     },
   },
-  async mounted() {},
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('外観')
+    Setup.setDescription('外観設定ページです')
+  },
+  async mounted() {
+    this.setTitle('外観')
+  },
 }
 </script>
 

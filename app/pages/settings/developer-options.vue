@@ -88,15 +88,25 @@ v-dialog(
 
 <script lang="ts">
 import { useSettingsStore } from '@/stores/settings'
+import Setup from '@/js/setup'
+import mixins from '@/mixins/mixins'
 
 export default {
+  mixins: [mixins],
   data() {
     return {
       settings: useSettingsStore(),
     }
   },
   watch: {},
-  async mounted() {},
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('開発者オプション')
+    Setup.setDescription('開発者オプション設定ページです')
+  },
+  async mounted() {
+    this.setTitle('開発者オプション')
+  },
   methods: {
     developerOptionLogout() {
       this.settings.developerOptions.enabled = false

@@ -51,7 +51,7 @@ v-card(
           v-icon mdi-information-outline
         .text
           p.title バージョン情報
-          p.description v{{ packageJson.version }}
+          p.description v1.0.0
       .setting-item(
         v-if="settings.developerOptions.enabled"
         v-ripple
@@ -133,20 +133,26 @@ v-card(
 
 <script lang="ts">
 import { Browser } from '@capacitor/browser'
-import { Device } from '@capacitor/device'
 import { Toast } from '@capacitor/toast'
 import { useSettingsStore } from '@/stores/settings'
-import PackageJson from '../../package.json'
+import Setup from '@/js/setup'
+import mixins from '@/mixins/mixins'
 
 export default {
+  mixins: [mixins],
   data() {
     return {
-      packageJson: PackageJson,
       developerOptionClickCount: 0,
       settings: useSettingsStore(),
     }
   },
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('運営情報')
+    Setup.setDescription('エノキ電気の運営情報を確認しましょう')
+  },
   async mounted() {
+    this.setTitle('運営情報')
     // 開発者オプション
     const developerOptions = localStorage.getItem('developerOptions')
     if (developerOptions) {
