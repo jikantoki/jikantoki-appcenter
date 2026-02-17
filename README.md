@@ -2,7 +2,7 @@
 
 ENOKI Appcenter（アプリストア）内蔵型ホームページ
 
-![アイコン](./public/img/icon.png)
+![アイコン](./public/img/icon192.png)
 
 ## 目的･目標
 
