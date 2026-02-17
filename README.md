@@ -24,7 +24,8 @@ ENOKI Appcenter（アプリストア）内蔵型ホームページ
 - - C
 - - HSP
 - - Vue (TypeScript)
-- - Java
+- - Java（Spring）
+- - シェルスクリプト
 - - PHP
 - プラットフォーム（どれか一つ）
 - - Windows
