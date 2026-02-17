@@ -11,7 +11,6 @@ export default defineComponent({
   data() {
     return {
       cookieAllowed: false,
-      env: null as any,
     }
   },
   computed: {
@@ -20,6 +19,17 @@ export default defineComponent({
     //     i => i.code !== this.$i18n.locale,
     //   )
     // },
+    env() {
+      const config = useRuntimeConfig()
+      return {
+        NUXT_WEBPUSH_PUBLICKEY: config.public.webpushPublickey,
+        NUXT_WEBPUSH_PRIVATEKEY: config.public.webpushPrivatekey,
+        NUXT_API_ID: config.public.apiId,
+        NUXT_API_TOKEN: config.public.apiToken,
+        NUXT_API_ACCESSKEY: config.public.apiAccesskey,
+        NUXT_API_HOST: config.public.apiHost,
+      }
+    },
   },
   mounted() {
     const isAllow = localStorage.cookieAllowed === 'true'
@@ -41,7 +51,6 @@ export default defineComponent({
         })
       }
     }
-    this.env = import.meta.env
   },
   methods: {
     sendAjax: ajaxFunctions.send,
