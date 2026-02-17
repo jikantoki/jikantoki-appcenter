@@ -4,7 +4,7 @@ v-card(
   :class="settings.hidden.isAndroid15OrHigher ? 'top-android-15-or-higher' : ''"
   )
   v-card-actions
-    p.ml-2(style="font-size: 1.3em") このアプリについて
+    p.ml-2(style="font-size: 1.3em") 運営情報
     v-spacer
     v-btn(
       text
@@ -167,7 +167,9 @@ export default {
         return
       }
       await Toast.show({
-        text: `開発者オプションを有効にするまであと ${8 - this.developerOptionClickCount} 回クリックしてください`,
+        text: `開発者オプションを有効にするまであと ${
+          8 - this.developerOptionClickCount
+        } 回クリックしてください`,
       })
       this.developerOptionClickCount += 1
       if (this.developerOptionClickCount >= 8) {

@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from 'nuxt/config'
-import vuetify from 'vite-plugin-vuetify'
 require('dotenv').config()
 export default defineNuxtConfig({
   modules: [
@@ -20,6 +19,13 @@ export default defineNuxtConfig({
     },
   },
   ssr: true,
+  vuetify: {
+    vuetifyOptions: {
+      theme: {
+        defaultTheme: 'system', // これでOSのモードを自動判別します
+      },
+    },
+  },
   app: {
     head: {
       htmlAttrs: {
@@ -32,7 +38,7 @@ export default defineNuxtConfig({
         {
           property: 'og:image',
           /** 相対パスNGらしいので各自で書き換えること */
-          content: 'https://nuxt4.enoki.xyz/img/thumbnail.jpg',
+          content: 'https://app.enoki.xyz/img/thumbnail.jpg',
         },
         { name: 'format-detection', content: 'telephone=no' },
         { name: 'mobile-web-app-capable', content: 'yes' },

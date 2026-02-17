@@ -55,8 +55,8 @@ v-card(
         .icon
           v-icon mdi-information-outline
         .text
-          p.title このアプリについて
-          p.description バージョン情報
+          p.title 運営情報
+          p.description エノキ電気について
       .setting-item(
         v-if="settings.developerOptions.enabled"
         v-ripple

@@ -205,7 +205,7 @@ v-card(
           v-list-item.item( @click="$router.push('/about')" )
             .icon-and-text
               v-icon mdi-information
-              v-list-item-title このアプリについて
+              v-list-item-title 運営情報
           v-list-item.item( @click="share('https://play.google.com/store/apps/dev?id=8940000495375956936', 'エノキ電気')" )
             .icon-and-text
               v-icon mdi-share-variant
