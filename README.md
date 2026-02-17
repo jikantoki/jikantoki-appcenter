@@ -92,6 +92,24 @@ Webアプリもアプリかのようにしれっと表示する
 - Github URL string
 - 紹介動画Youtube URL string
 - 紹介画像URL又はBase64 string[]
+- アプリかゲームか（選択） string
+- 製作者情報はアップロードしたユーザーの情報をDBから拾う
+
+### 楽曲情報
+
+- 楽曲名 string
+- 楽曲ID（URLに使う） string
+- 作詞者（デフォルトでアカウント名が出てくる） string
+- 作曲者（デフォルトでアカウント名が出てくる） string
+- 紹介文（できればマークダウン対応したい） string
+- 歌詞（できればマークダウン対応したい） string
+- MV Youtube URL string
+- その他URL []
+- - 配列の中身↓↓↓
+- - - ボタンに表示するテキスト string
+- - - ボタン表示用MDIアイコン string
+- - - 推移先URL string
+- 製作者情報はアップロードしたユーザーの情報をDBから拾う
 
 ## Nuxt Content Starter
 
