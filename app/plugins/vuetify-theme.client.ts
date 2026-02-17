@@ -9,7 +9,7 @@ export default defineNuxtPlugin({
     const settings = useSettingsStore()
     const theme = useTheme()
     
-    // Apply theme immediately based on settings
+    // Apply theme based on current settings
     const applyTheme = () => {
       const themeSetting = settings.display.theme
       
@@ -26,5 +26,14 @@ export default defineNuxtPlugin({
     
     // Apply theme immediately
     applyTheme()
+    
+    // Listen for system theme changes when in 'system' mode
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const handleSystemThemeChange = () => {
+      if (settings.display.theme === 'system') {
+        theme.global.name.value = mediaQuery.matches ? 'dark' : 'light'
+      }
+    }
+    mediaQuery.addEventListener('change', handleSystemThemeChange)
   },
 })
