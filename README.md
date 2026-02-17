@@ -79,6 +79,7 @@ Webアプリもアプリかのようにしれっと表示する
 
 - アプリ名　string
 - アプリID（URLに使う）　string
+- リリース日unixtime number
 - アプリアイコンURL又はBase64 string
 - サムネイルURL又はBase64 string
 - 紹介文（できればマークダウン対応したい） string
@@ -99,6 +100,13 @@ Webアプリもアプリかのようにしれっと表示する
 
 - 楽曲名 string
 - 楽曲ID（URLに使う） string
+- 楽曲アイコンURL又はBase64 string
+- リリース日unixtime number
+- シングル？アルバム？（選択） string
+- （アルバムの場合）楽曲リスト []
+- - 配列の中身↓↓↓
+- - - 楽曲名 string
+- - - 楽曲シングルのURL string
 - 作詞者（デフォルトでアカウント名が出てくる） string
 - 作曲者（デフォルトでアカウント名が出てくる） string
 - 紹介文（できればマークダウン対応したい） string
