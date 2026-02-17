@@ -25,5 +25,6 @@ logs
 env.php
 
 pnpm-lock.yaml
+package-lock.json
 
 /vendor

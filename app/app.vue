@@ -55,37 +55,47 @@ export default {
     }
 
     // テーマに関する設定
-    const themeOptions = localStorage.getItem('themeOptions')
-    if (themeOptions && Capacitor.getPlatform() !== 'web') {
-      const options = JSON.parse(themeOptions)
-      switch (options.theme) {
-        case true: {
-          this.$vuetify.theme.change('light')
-          StatusBar.setStyle({ style: Style.Light })
+    // Apply theme from settings store
+    const applyTheme = (theme: string) => {
+      switch (theme) {
+        case 'light': {
+          this.$vuetify.theme.global.name.value = 'light'
+          if (Capacitor.getPlatform() !== 'web') {
+            StatusBar.setStyle({ style: Style.Light })
+          }
           break
         }
-        case false: {
-          this.$vuetify.theme.change('dark')
-          StatusBar.setStyle({ style: Style.Dark })
-
+        case 'dark': {
+          this.$vuetify.theme.global.name.value = 'dark'
+          if (Capacitor.getPlatform() !== 'web') {
+            StatusBar.setStyle({ style: Style.Dark })
+          }
           break
         }
-        case undefined: {
+        case 'system':
+        default: {
           const systemTheme = window.matchMedia(
             '(prefers-color-scheme: dark)',
           ).matches
-          if (systemTheme) {
-            StatusBar.setStyle({ style: Style.Dark })
-            this.$vuetify.theme.change('dark')
-          } else {
-            StatusBar.setStyle({ style: Style.Light })
-            this.$vuetify.theme.change('light')
+          this.$vuetify.theme.global.name.value = systemTheme ? 'dark' : 'light'
+          if (Capacitor.getPlatform() !== 'web') {
+            StatusBar.setStyle({ style: systemTheme ? Style.Dark : Style.Light })
           }
-
           break
         }
       }
     }
+
+    // Apply theme on mount
+    applyTheme(this.settings.display.theme)
+
+    // Watch for theme changes
+    this.$watch(
+      () => this.settings.display.theme,
+      (newTheme) => {
+        applyTheme(newTheme)
+      },
+    )
 
     /**
      * mountedの最後に記述
