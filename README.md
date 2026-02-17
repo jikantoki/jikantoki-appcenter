@@ -37,7 +37,7 @@ ENOKI Appcenter（アプリストア）内蔵型ホームページ
 
 ## 動的ルーティング
 
-### /[categoryId]/[appId]
+### /apps/[appId]
 
 動的にアプリを表示するように、先に中身はJSON（厳密にはTSオブジェクト）で定義できるように
 
@@ -71,6 +71,26 @@ Webアプリもアプリかのようにしれっと表示する
 
 - ときえのき（個人）エノキ電気ホームページのどこか1ページに、ときえのき（個人）のホームページ（ペライチでいい）を作る
 - 制作楽曲に関しては、エノキ電気所属のときえのきが作りました
+
+## TSファイル、JSONファイル仕様
+
+### アプリ情報
+
+- アプリ名　string
+- アプリID（URLに使う）　string
+- アプリアイコンURL又はBase64 string
+- サムネイルURL又はBase64 string
+- 紹介文（できればマークダウン対応したい） string
+- 対応プラットフォーム string[]（複数選択）
+- 使用言語 string[]（複数選択）
+- アプリリンクス []
+- - 配列の中身↓↓↓
+- - - ボタンに表示するテキスト string
+- - - ボタン表示用MDIアイコン string
+- - - 推移先URL string
+- Github URL string
+- 紹介動画Youtube URL string
+- 紹介画像URL又はBase64 string[]
 
 ## Nuxt Content Starter
 
