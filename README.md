@@ -101,6 +101,7 @@ Webアプリもアプリかのようにしれっと表示する
 - 楽曲名 string
 - 楽曲ID（URLに使う） string
 - 楽曲アイコンURL又はBase64 string
+- オーディオファイル（mp3）URL string
 - リリース日unixtime number
 - シングル？アルバム？（選択） string
 - （アルバムの場合）楽曲リスト []
