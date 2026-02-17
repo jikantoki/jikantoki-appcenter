@@ -13,9 +13,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: '2024-04-03',
   runtimeConfig: {
+    // Server-only environment variables
+    webpushPrivatekey: process.env.NUXT_WEBPUSH_PRIVATEKEY || '',
     public: {
+      // Client-side accessible environment variables
       webpushPublickey: process.env.NUXT_WEBPUSH_PUBLICKEY || '',
-      webpushPrivatekey: process.env.NUXT_WEBPUSH_PRIVATEKEY || '',
       apiId: process.env.NUXT_API_ID || 'default',
       apiToken: process.env.NUXT_API_TOKEN || '',
       apiAccesskey: process.env.NUXT_API_ACCESSKEY || '',

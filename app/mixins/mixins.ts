@@ -19,11 +19,14 @@ export default defineComponent({
     //     i => i.code !== this.$i18n.locale,
     //   )
     // },
+    /**
+     * 環境変数を取得する
+     * レガシーコードとの互換性のため、同じインターフェースを維持
+     */
     env() {
       const config = useRuntimeConfig()
       return {
         NUXT_WEBPUSH_PUBLICKEY: config.public.webpushPublickey,
-        NUXT_WEBPUSH_PRIVATEKEY: config.public.webpushPrivatekey,
         NUXT_API_ID: config.public.apiId,
         NUXT_API_TOKEN: config.public.apiToken,
         NUXT_API_ACCESSKEY: config.public.apiAccesskey,
