@@ -28,7 +28,7 @@ export interface SocialLink {
   text: string
   /** ボタン表示用MDIアイコン */
   icon: string
-  /** 推移先URL */
+  /** 遷移先URL */
   url: string
 }
 

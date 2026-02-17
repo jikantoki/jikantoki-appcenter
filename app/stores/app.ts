@@ -8,7 +8,7 @@ export interface AppLink {
   text: string
   /** ボタン表示用MDIアイコン */
   icon: string
-  /** 推移先URL */
+  /** 遷移先URL */
   url: string
 }
 
@@ -34,7 +34,7 @@ export interface AppInfo {
   platforms: string[]
   /** 使用言語（複数選択） */
   languages: string[]
-  /** アプリリンクス */
+  /** アプリリンク */
   links: AppLink[]
   /** Github URL */
   githubUrl?: string
@@ -64,7 +64,7 @@ export interface OtherLink {
   text: string
   /** ボタン表示用MDIアイコン */
   icon: string
-  /** 推移先URL */
+  /** 遷移先URL */
   url: string
 }
 
