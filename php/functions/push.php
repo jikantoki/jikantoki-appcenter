@@ -5,8 +5,8 @@ use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
 
 const VAPID_SUBJECT = WebPush_URL;
-const PUBLIC_KEY = VUE_APP_WebPush_PublicKey;
-const PRIVATE_KEY = VUE_APP_WebPush_PrivateKey;
+const PUBLIC_KEY = NUXT_WebPush_PublicKey;
+const PRIVATE_KEY = NUXT_WebPush_PrivateKey;
 
 /**
  * ## プッシュ通知を送信する

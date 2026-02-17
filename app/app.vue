@@ -1,7 +1,7 @@
 <template lang="pug">
 v-app
   common-splash-vue(v-show="splashScreen")
-  v-main(style="height: 100vh;")
+  main(style="height: 100vh;")
     .status-bar-padding(:class="settings.hidden.isAndroid15OrHigher ? 'android-15-or-higher' : ''")
     router-view(:style="settings.hidden.isAndroid15OrHigher ? 'height: calc(100vh - 40px - 16px);' : ''")
     .nav-bar-padding(:class="settings.hidden.isAndroid15OrHigher ? 'android-15-or-higher' : ''")
@@ -9,12 +9,11 @@ v-app
 
 <script lang="ts">
 import { Capacitor } from '@capacitor/core'
-import { Device } from '@capacitor/device'
 import { StatusBar, Style } from '@capacitor/status-bar'
-import commonSplashVue from './components/common/commonSplash.vue'
-import mixins from './mixins/mixins'
-import { useMyProfileStore } from './stores/myProfile'
-import { useSettingsStore } from './stores/settings'
+import commonSplashVue from '@/components/common/commonSplash.vue'
+import mixins from '@/mixins/mixins'
+import { useMyProfileStore } from '@/stores/myProfile'
+import { useSettingsStore } from '@/stores/settings'
 
 export default {
   name: 'App',

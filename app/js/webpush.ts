@@ -97,7 +97,7 @@ async function getRequest(listenFlag = false) {
   /**
    * 共通変数
    */
-  const PUBLIC_KEY = env.VUE_APP_WEBPUSH_PUBLICKEY
+  const PUBLIC_KEY = env.NUXT_WEBPUSH_PUBLICKEY
   // 取得したPublicKeyを「UInt8Array」形式に変換する
   const applicationServerKey = urlB64ToUint8Array(PUBLIC_KEY)
 

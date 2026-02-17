@@ -220,7 +220,9 @@ v-dialog(v-model="followDialogMessage")
 
 <script lang="ts">
 import { App } from '@capacitor/app'
+// import webpush from '@/js/webpush'
 // import { Clipboard } from '@capacitor/clipboard'
+import Setup from '@/js/setup'
 import { Share } from '@capacitor/share'
 import QRCode from 'qrcode'
 import mixins from '@/mixins/mixins'
@@ -228,6 +230,11 @@ import { useMyProfileStore } from '@/stores/myProfile'
 
 export default {
   mixins: [mixins],
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('Top')
+    Setup.setDescription('Nuxt環境を簡単にセットアップできる全部入りパッケージ')
+  },
   data() {
     return {
       param: null as any,
@@ -256,6 +263,7 @@ export default {
     }
   },
   async mounted() {
+    this.setTitle(this.$t('index.title'))
     this.loading = true
     this.qrLoading = true
 

@@ -51,6 +51,18 @@
       "src": "img/icon512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "img/thumbnail.jpg",
+      "sizes": "4096x2304",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    },
+    {
+      "src": "img/thumbnail.jpg",
+      "sizes": "4096x2304",
+      "type": "image/jpeg",
+      "form_factor": "narrow"
     }
   ],
   "shortcuts": [

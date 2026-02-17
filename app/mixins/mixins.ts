@@ -5,14 +5,12 @@
 import { defineComponent } from 'vue'
 import ajaxFunctions from '@/js/ajaxFunctions'
 // import Functions from '~/js/Functions'
-import PackageJson from '../../package.json'
 
 export default defineComponent({
   components: {},
   data() {
     return {
       cookieAllowed: false,
-      PackageJson,
       env: null as any,
     }
   },
@@ -68,10 +66,13 @@ export default defineComponent({
       sendObject = null as any,
       isPost = true,
     ) {
+      if (!this.env.NUXT_API_HOST) {
+        return null
+      }
       const authHeader = {
-        apiid: this.env.VUE_APP_API_ID,
-        apitoken: this.env.VUE_APP_API_TOKEN,
-        apipassword: this.env.VUE_APP_API_ACCESSKEY,
+        apiid: this.env.NUXT_API_ID,
+        apitoken: this.env.NUXT_API_TOKEN,
+        apipassword: this.env.NUXT_API_ACCESSKEY,
       }
       let hd = []
       hd = this.isObject(header)
@@ -82,7 +83,7 @@ export default defineComponent({
         then: (arg0: (e: { [key: string]: any }) => void) => unknown
         body: any
         isJSON: boolean
-      } = this.sendAjax(this.env.VUE_APP_API_HOST + url, sendObject, hd, isPost)
+      } = this.sendAjax(this.env.NUXT_API_HOST + url, sendObject, hd, isPost)
       return res
     },
     /**
@@ -187,6 +188,31 @@ export default defineComponent({
     denyCookie() {
       localStorage.cookieAllowed = false
       this.cookieAllowed = false
+    },
+    /**
+     * いい感じのタイトルを付ける
+     * @param {string} newTitle 新しく付けたいタイトル
+     * @returns 引数に合わせて設定したら0、デフォルトのまま設定したら1
+     */
+    setTitle: (newTitle: string) => {
+      const siteName = 'ENOKI Appcenter'
+      let pageTitle
+      let returnCode
+      if (newTitle) {
+        pageTitle = `${newTitle} | ${siteName}`
+        returnCode = 0
+      } else {
+        pageTitle = siteName
+        returnCode = 1
+      }
+      //まずリアルタイムで更新
+      document.title = pageTitle
+      //何故かこうしないと無効になる場合がある
+      setTimeout(() => {
+        document.title = pageTitle
+      }, 1500)
+      useMetaStore().setTitle(newTitle)
+      return returnCode
     },
     /**
      * アカウントのプロフィールを取得
