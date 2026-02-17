@@ -9,16 +9,31 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
+    "@capacitor/app": "^8.0.1",
+    "@capacitor/browser": "^8.0.1",
+    "@capacitor/camera": "^8.0.1",
+    "@capacitor/clipboard": "^8.0.1",
+    "@capacitor/core": "^8.1.0",
+    "@capacitor/device": "^8.0.1",
+    "@capacitor/share": "^8.0.1",
+    "@capacitor/status-bar": "^8.0.1",
+    "@capacitor/toast": "^8.0.1",
     "@nuxt/content": "^3.11.2",
     "@nuxt/eslint": "1.15.1",
     "@nuxtjs/i18n": "10.2.3",
-    "@pinia/nuxt": "0.11.3",
+    "@pinia/nuxt": "^0.11.3",
+    "@types/qrcode": "^1.5.6",
     "better-sqlite3": "^12.6.2",
+    "capacitor-native-settings": "^8.0.0",
     "nuxt": "^4.3.1",
     "pinia": "^3.0.4",
-    "pinia-plugin-persistedstate": "^4.7.1",
     "pug": "^3.0.3",
+    "qrcode": "^1.5.4",
     "sass-embedded": "^1.97.3",
-    "vuetify-nuxt-module": "0.19.5"
+    "vue-qrcode-reader": "^5.7.3",
+    "vuetify-nuxt-module": "^0.19.5"
+  },
+  "devDependencies": {
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.1"
   }
 }

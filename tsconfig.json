@@ -14,5 +14,18 @@
     {
       "path": "./.nuxt/tsconfig.node.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./app/*"],
+      "~/*": ["./*"]
+    },
+    "allowJs": true,
+    "target": "es2024",
+    "module": "es2022"
+  },
+  "include": []
 }
