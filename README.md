@@ -90,6 +90,8 @@ Webアプリもアプリかのようにしれっと表示する
 
 ## TSファイル、JSONファイル仕様
 
+紹介文・歌詞はマークダウン対応予定（Nuxt Content または markdown-it + shiki などでHTML化）
+
 ### アプリ情報
 
 - アプリ名　string
