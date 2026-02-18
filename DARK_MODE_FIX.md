@@ -1,43 +1,34 @@
 # Dark Mode Flash Fix - Technical Documentation
 
-## Problem Statement
+## 問題の説明
 
-When a user opens the application with their browser set to dark mode, the initial page load displays a white background flash before the dark theme is applied. This creates a poor user experience, especially in low-light environments.
+OSのダークモードが有効な状態でアプリを開くと、初回ページレンダリング時に白背景が表示され、その後ダークテーマに切り替わる問題（FOUC - Flash of Unstyled Content）が発生していました。
 
-## Root Cause
+## 根本原因
 
-The dark mode theme was being applied in the `mounted()` lifecycle hook of `app.vue`, which executes **after** the initial render of the page. This timing issue caused the following sequence:
+テーマの適用が`app.vue`の`mounted()`ライフサイクルフック内で行われており、これは初回レンダリング**後**に実行されるため、以下のような流れになっていました：
 
-1. Page loads with default (light) theme
-2. User sees white background
-3. `mounted()` hook executes
-4. Theme changes to dark
-5. User sees the flash from light to dark
+1. ページがデフォルト（ライト）テーマでロード
+2. ユーザーに白背景が表示される
+3. `mounted()`フックが実行される
+4. テーマがダークに変更される
+5. ユーザーはライトからダークへの切り替えフラッシュを見る
 
-Additionally, the application was using an old localStorage format (`themeOptions`) that was incompatible with the current settings store structure.
+## 解決策
 
-## Solution
+### 1. Nuxtプラグインでの早期テーマ適用
 
-### 1. Created Early-Running Plugin (`app/plugins/vuetify-theme.client.ts`)
-
-A new Nuxt plugin with `enforce: 'pre'` that runs before the app mounts. This plugin:
-- Initializes the settings store to load persisted theme preferences
-- Reads the theme setting from the store
-- Applies the theme immediately using Vuetify's `useTheme()` composable
-- Handles three theme modes: 'light', 'dark', and 'system' (auto-detect from OS)
+`app/plugins/vuetify-theme.client.ts`を作成し、`app:beforeMount`フックを使用：
 
 ```typescript
-import { useSettingsStore } from '@/stores/settings'
-import { useTheme } from 'vuetify'
-
 export default defineNuxtPlugin({
   name: 'vuetify-theme',
   enforce: 'pre',
-  setup() {
-    const settings = useSettingsStore()
-    const theme = useTheme()
-    
-    const applyTheme = () => {
+  hooks: {
+    'app:beforeMount'() {
+      const settings = useSettingsStore()
+      const theme = useTheme()
+      
       const themeSetting = settings.display.theme
       
       if (themeSetting === 'light') {
@@ -48,50 +39,59 @@ export default defineNuxtPlugin({
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
         theme.global.name.value = prefersDark ? 'dark' : 'light'
       }
-    }
-    
-    applyTheme()
+      
+      // システムテーマ変更のリスナー
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+      const handleSystemThemeChange = () => {
+        if (settings.display.theme === 'system') {
+          theme.global.name.value = mediaQuery.matches ? 'dark' : 'light'
+        }
+      }
+      mediaQuery.addEventListener('change', handleSystemThemeChange)
+    },
   },
 })
 ```
 
-### 2. Updated `app.vue`
+### 2. SSR互換性の確保
 
-- Removed the old `themeOptions` localStorage reading
-- Migrated to use the settings store (`settings.display.theme`)
-- Updated Vuetify API calls to use Vuetify 3's correct syntax: `theme.global.name.value`
-- Added a watcher to sync theme changes with the Capacitor StatusBar (for mobile apps)
+- `.client.ts`サフィックス：クライアントサイドでのみ実行
+- `app:beforeMount`フック：アプリマウント直前に実行、この時点で`window`オブジェクトが利用可能
+- `enforce: 'pre'`：他のプラグインより先に実行
 
-### 3. Updated `app/pages/settings/display.vue`
+### 3. Vuetify 3 APIの使用
 
-- Updated the theme change handler to use the correct Vuetify 3 API
-- Simplified the system theme detection logic
-- Maintained compatibility with Capacitor's StatusBar API for mobile
+`app.vue`と`display.vue`で正しいVuetify 3 APIを使用：
+- 旧: `theme.change('dark')` ❌
+- 新: `theme.global.name.value = 'dark'` ✅
 
-## Benefits
+## 利点
 
-1. **Eliminates White Flash**: Theme is applied before the first render
-2. **Better User Experience**: Smooth, flicker-free dark mode on initial load
-3. **Maintains State**: Uses the persisted settings store for theme preferences
-4. **OS Integration**: Properly detects and respects system dark mode preferences
-5. **Mobile Support**: Syncs with Capacitor StatusBar for native mobile apps
+1. **FOUCの解消**: 初回レンダリング前にテーマが適用される
+2. **SSR互換**: サーバーサイドレンダリングでエラーが発生しない
+3. **状態の永続化**: Pinia設定ストアからテーマ設定を読み込み
+4. **OSとの統合**: システムダークモード設定を正しく検出
+5. **ランタイム更新**: OSのテーマ変更にリアルタイムで対応
+6. **モバイル対応**: Capacitor StatusBarと同期
 
-## Testing Recommendations
+## テストの推奨事項
 
-To verify the fix works correctly:
+修正が正しく機能することを確認するには：
 
-1. Set your browser/OS to dark mode
-2. Clear local storage
-3. Open the application for the first time
-4. Verify no white flash occurs on initial load
-5. Navigate to Settings > Display
-6. Change between light, dark, and system themes
-7. Verify changes are immediate and persist after page refresh
-8. On mobile devices, verify the status bar color matches the theme
+1. ブラウザ/OSをダークモードに設定
+2. ローカルストレージをクリア
+3. アプリを初めて開く
+4. 白背景フラッシュが発生しないことを確認
+5. 設定 > 外観に移動
+6. ライト、ダーク、システムテーマを切り替え
+7. 変更が即座に反映され、ページ更新後も保持されることを確認
+8. モバイルデバイスで、ステータスバーの色がテーマと一致することを確認
 
-## Technical Notes
+## 技術的な注意事項
 
-- The plugin is named with `.client.ts` suffix, ensuring it runs only on the client side
-- The `enforce: 'pre'` directive ensures it runs before other plugins
-- The solution is compatible with Nuxt 3's SSR (Server-Side Rendering)
-- Vuetify 3's theme system uses reactive values, so changes propagate automatically
+- プラグインは`.client.ts`サフィックスによりクライアントサイドでのみ実行
+- `enforce: 'pre'`により他のプラグインより先に実行
+- Nuxt 3のSSR（サーバーサイドレンダリング）と互換性あり
+- Vuetify 3のテーマシステムはリアクティブ値を使用するため、変更は自動的に伝播
+- イベントリスナーはアプリのライフタイム中保持され、メモリリークの問題なし
+
