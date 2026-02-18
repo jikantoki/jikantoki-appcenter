@@ -99,8 +99,9 @@ export default {
 
 <style lang="scss">
 // フォントをZen Maru Gothicに統一
-* {
-  font-family: 'Zen Maru Gothic', sans-serif !important;
+html,
+body {
+  font-family: 'Zen Maru Gothic', sans-serif;
 }
 
 .status-bar-padding.android-15-or-higher {
