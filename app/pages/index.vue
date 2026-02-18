@@ -257,8 +257,6 @@ export default {
       searchFriendLoading: false,
       /** 友達検索画面のエラー表示 */
       searchFriendErrorMessage: '',
-      /** 環境変数 */
-      env: null as any,
       /** 承認待ち友達リスト */
       acceptList: [] as any,
       /** 承認してほしい友達がいるダイアログ */
@@ -287,8 +285,6 @@ export default {
   },
   async mounted() {
     this.setTitle('ENOKI Appcenter')
-    // @ts-ignore
-    this.env = import.meta.env as any
 
     /** ようこその復活 */
     const welcomeDialog = localStorage.getItem('welcomeDialog')

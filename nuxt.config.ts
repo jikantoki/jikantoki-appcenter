@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from 'nuxt/config'
-require('dotenv').config()
+
 export default defineNuxtConfig({
   modules: [
     '@nuxt/content',
@@ -13,9 +13,15 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: '2024-04-03',
   runtimeConfig: {
+    // Server-only environment variables
+    webpushPrivatekey: process.env.NUXT_WEBPUSH_PRIVATEKEY || '',
     public: {
-      // @ts-ignore
-      env: process.env,
+      // Client-side accessible environment variables
+      webpushPublickey: process.env.NUXT_WEBPUSH_PUBLICKEY || '',
+      apiId: process.env.NUXT_API_ID || 'default',
+      apiToken: process.env.NUXT_API_TOKEN || '',
+      apiAccesskey: process.env.NUXT_API_ACCESSKEY || '',
+      apiHost: process.env.NUXT_API_HOST || '',
     },
   },
   ssr: true,
