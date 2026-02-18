@@ -3,7 +3,7 @@ v-app
   common-splash-vue(v-show="splashScreen")
   main(style="height: 100vh;")
     .status-bar-padding(:class="settings.hidden.isAndroid15OrHigher ? 'android-15-or-higher' : ''")
-    router-view(:style="settings.hidden.isAndroid15OrHigher ? 'height: calc(100vh - 40px - 16px);' : ''")
+    NuxtPage(:style="settings.hidden.isAndroid15OrHigher ? 'height: calc(100vh - 40px - 16px);' : ''")
     .nav-bar-padding(:class="settings.hidden.isAndroid15OrHigher ? 'android-15-or-higher' : ''")
 </template>
 
