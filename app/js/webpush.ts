@@ -93,11 +93,11 @@ function urlB64ToUint8Array(base64String: string) {
  * @returns リクエスト、エラーはfalse、PWAによるリクエスト不可はnull
  */
 async function getRequest(listenFlag = false) {
-  const env = import.meta.env
+  const config = useRuntimeConfig()
   /**
    * 共通変数
    */
-  const PUBLIC_KEY = env.NUXT_WEBPUSH_PUBLICKEY
+  const PUBLIC_KEY = config.public.webpushPublickey
   // 取得したPublicKeyを「UInt8Array」形式に変換する
   const applicationServerKey = urlB64ToUint8Array(PUBLIC_KEY)
 
