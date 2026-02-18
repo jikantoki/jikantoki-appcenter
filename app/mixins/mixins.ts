@@ -247,6 +247,11 @@ export default defineComponent({
           location: null as any,
           battery: null as any,
           guest: null as any,
+          canRegisterApp: res.canRegisterApp === '' ? false : res.canRegisterApp,
+          profileInfo: res.profileInfo === '' ? null : res.profileInfo,
+          educationHistory: res.educationHistory || [],
+          careerHistory: res.careerHistory || [],
+          socialLinks: res.socialLinks || [],
         }
       } else {
         // 存在しない
