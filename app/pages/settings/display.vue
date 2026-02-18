@@ -75,14 +75,14 @@ export default {
       handler() {
         switch (this.settings.display.theme) {
           case 'light': {
-            this.$vuetify.theme.change('light')
+            this.$vuetify.theme.global.name.value = 'light'
             if (Capacitor.getPlatform() !== 'web') {
               StatusBar.setStyle({ style: Style.Light })
             }
             break
           }
           case 'dark': {
-            this.$vuetify.theme.change('dark')
+            this.$vuetify.theme.global.name.value = 'dark'
             if (Capacitor.getPlatform() !== 'web') {
               StatusBar.setStyle({ style: Style.Dark })
             }
@@ -93,17 +93,9 @@ export default {
             const systemTheme = window.matchMedia(
               '(prefers-color-scheme: dark)',
             ).matches
-            if (systemTheme) {
-              if (Capacitor.getPlatform() !== 'web') {
-                StatusBar.setStyle({ style: Style.Dark })
-              }
-              this.$vuetify.theme.change('dark')
-            } else {
-              if (Capacitor.getPlatform() !== 'web') {
-                StatusBar.setStyle({ style: Style.Light })
-              }
-
-              this.$vuetify.theme.change('light')
+            this.$vuetify.theme.global.name.value = systemTheme ? 'dark' : 'light'
+            if (Capacitor.getPlatform() !== 'web') {
+              StatusBar.setStyle({ style: systemTheme ? Style.Dark : Style.Light })
             }
             break
           }
