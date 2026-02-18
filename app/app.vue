@@ -98,6 +98,11 @@ export default {
 </script>
 
 <style lang="scss">
+// フォントをZen Maru Gothicに統一
+* {
+  font-family: 'Zen Maru Gothic', sans-serif !important;
+}
+
 .status-bar-padding.android-15-or-higher {
   height: 40px;
   width: 100vw;
