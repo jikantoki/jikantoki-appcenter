@@ -61,14 +61,14 @@ export default {
     const applyTheme = (theme: string) => {
       switch (theme) {
         case 'light': {
-          this.theme.change('light')
+          this.theme.global.name.value = 'light'
           if (Capacitor.getPlatform() !== 'web') {
             StatusBar.setStyle({ style: Style.Light })
           }
           break
         }
         case 'dark': {
-          this.theme.change('dark')
+          this.theme.global.name.value = 'dark'
           if (Capacitor.getPlatform() !== 'web') {
             StatusBar.setStyle({ style: Style.Dark })
           }
@@ -79,7 +79,7 @@ export default {
           const systemTheme = window.matchMedia(
             '(prefers-color-scheme: dark)',
           ).matches
-          this.theme.change(systemTheme ? 'dark' : 'light')
+          this.theme.global.name.value = systemTheme ? 'dark' : 'light'
           if (Capacitor.getPlatform() !== 'web') {
             StatusBar.setStyle({
               style: systemTheme ? Style.Dark : Style.Light,
