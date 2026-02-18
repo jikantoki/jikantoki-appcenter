@@ -14,6 +14,7 @@ import commonSplashVue from '@/components/common/commonSplash.vue'
 import mixins from '@/mixins/mixins'
 import { useMyProfileStore } from '@/stores/myProfile'
 import { useSettingsStore } from '@/stores/settings'
+import { useTheme } from 'vuetify'
 
 export default {
   name: 'App',
@@ -26,6 +27,7 @@ export default {
       splashScreen: true,
       myProfile: useMyProfileStore(),
       settings: useSettingsStore(),
+      theme: useTheme(),
     }
   },
   watch: {},
@@ -59,14 +61,14 @@ export default {
     const applyTheme = (theme: string) => {
       switch (theme) {
         case 'light': {
-          this.$vuetify.theme.global.name.value = 'light'
+          this.theme.change('light')
           if (Capacitor.getPlatform() !== 'web') {
             StatusBar.setStyle({ style: Style.Light })
           }
           break
         }
         case 'dark': {
-          this.$vuetify.theme.global.name.value = 'dark'
+          this.theme.change('dark')
           if (Capacitor.getPlatform() !== 'web') {
             StatusBar.setStyle({ style: Style.Dark })
           }
@@ -77,9 +79,11 @@ export default {
           const systemTheme = window.matchMedia(
             '(prefers-color-scheme: dark)',
           ).matches
-          this.$vuetify.theme.global.name.value = systemTheme ? 'dark' : 'light'
+          this.theme.change(systemTheme ? 'dark' : 'light')
           if (Capacitor.getPlatform() !== 'web') {
-            StatusBar.setStyle({ style: systemTheme ? Style.Dark : Style.Light })
+            StatusBar.setStyle({
+              style: systemTheme ? Style.Dark : Style.Light,
+            })
           }
           break
         }
