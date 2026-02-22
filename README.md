@@ -32,19 +32,19 @@
 
 ## 主な機能・ページ構成
 
-| パス                | 内容                   |
-| ------------------- | ---------------------- |
-| `/`                 | トップページ           |
-| `/login`            | ログイン               |
-| `/registar`         | アカウント登録         |
-| `/password_reset`   | パスワードリセット     |
-| `/user/[userId]`    | ユーザープロフィール   |
-| `/friendlist`       | 友達リスト             |
-| `/qrcode`           | QR コードで友達を探す  |
-| `/settings`         | 設定（テーマ・通知等） |
-| `/terms`            | 利用規約               |
-| `/about`            | 運営情報               |
-| `/tutorial`         | チュートリアル         |
+| パス              | 内容                   |
+| ----------------- | ---------------------- |
+| `/`               | トップページ           |
+| `/login`          | ログイン               |
+| `/registar`       | アカウント登録         |
+| `/password_reset` | パスワードリセット     |
+| `/user/[userId]`  | ユーザープロフィール   |
+| `/friendlist`     | 友達リスト             |
+| `/qrcode`         | QR コードで友達を探す  |
+| `/settings`       | 設定（テーマ・通知等） |
+| `/terms`          | 利用規約               |
+| `/about`          | 運営情報               |
+| `/tutorial`       | チュートリアル         |
 
 ## ファイル構成
 
@@ -188,12 +188,13 @@ $mailFooter = "<p>
 <IfModule mod_rewrite.c>
 RewriteEngine on
 RewriteBase /
+RewriteRule ^(.+)$ jikantoki-appcenter/php/ [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.+)$ $1 [L]
+RewriteRule ^(.+)$ jikantoki-appcenter/php/$1 [L]
 </IfModule>
-# 外部からのAPIへのアクセスを許可
 Header append Access-Control-Allow-Origin: "*"
+Header append Access-Control-Allow-Headers: "*"
 ```
 
 ### 4. MySQL の用意
@@ -243,13 +244,13 @@ yarn preview
 
 ## 設定箇所
 
-| 項目             | 設定箇所                              |
-| ---------------- | ------------------------------------- |
-| アプリ名         | `package.json` / `capacitor.config.ts` |
-| フォント         | `nuxt.config.ts` / `app/app.vue`      |
-| テーマカラー     | `app/app.vue`                         |
-| 環境変数         | `.env` / `nuxt.config.ts`             |
-| Capacitor 設定   | `capacitor.config.ts`                 |
+| 項目           | 設定箇所                               |
+| -------------- | -------------------------------------- |
+| アプリ名       | `package.json` / `capacitor.config.ts` |
+| フォント       | `nuxt.config.ts` / `app/app.vue`       |
+| テーマカラー   | `app/app.vue`                          |
+| 環境変数       | `.env` / `nuxt.config.ts`              |
+| Capacitor 設定 | `capacitor.config.ts`                  |
 
 ## 参考資料
 
