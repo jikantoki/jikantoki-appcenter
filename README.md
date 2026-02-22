@@ -188,7 +188,7 @@ $mailFooter = "<p>
 <IfModule mod_rewrite.c>
 RewriteEngine on
 RewriteBase /
-RewriteRule ^(.+)$ jikantoki-appcenter/php/ [L]
+RewriteRule ^$ jikantoki-appcenter/php/ [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.+)$ jikantoki-appcenter/php/$1 [L]
